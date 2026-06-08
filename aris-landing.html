@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARIS – Adrián Ricardo | Marido de Aluguel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #1a2d5a;
+    --gold: #F5A623;
+    --gold-light: #FFD166;
+    --white: #FFFFFF;
+    --off-white: #F4F6FB;
+    --gray: #8892a4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--navy) 55%, #162348 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 2px solid rgba(245,166,35,.12);
+    top: -100px; right: -150px;
+    animation: spin 30s linear infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 2px solid rgba(245,166,35,.08);
+    bottom: -80px; left: -100px;
+    animation: spin 20s linear infinite reverse;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: .95;
+    letter-spacing: .03em;
+    animation: fadeDown .6s .1s ease both;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255,255,255,.75);
+    max-width: 520px;
+    margin: 18px auto 10px;
+    animation: fadeDown .6s .2s ease both;
+  }
+
+  .hero-location {
+    font-size: .9rem;
+    color: var(--gold);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    animation: fadeDown .6s .3s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 16px 36px;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 28px rgba(37,211,102,.35);
+    animation: fadeDown .6s .4s ease both;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,.45); }
+
+  .btn-primary svg { width: 22px; height: 22px; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,.4);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint svg { width: 18px; height: 18px; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--off-white);
+    color: var(--navy);
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--navy);
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 24px;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(13,27,62,.08);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(13,27,62,.14); }
+
+  .card-icon {
+    width: 48px; height: 48px;
+    background: var(--navy);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+
+  .card h3 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: .9rem;
+    color: #4a556a;
+    line-height: 1.6;
+  }
+
+  /* ── QUOTE FORM ── */
+  .quote {
+    background: var(--navy);
+    padding: 80px 24px;
+  }
+
+  .quote .section-title { color: var(--white); }
+
+  .form-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--navy-mid);
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid rgba(245,166,35,.2);
+  }
+
+  .checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .check-item input[type="checkbox"] { display: none; }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid rgba(255,255,255,.25);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+  }
+
+  .check-item input:checked ~ .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .check-item input:checked ~ .check-box::after {
+    content: '';
+    display: block;
+    width: 6px; height: 10px;
+    border: 2px solid var(--navy);
+    border-top: none; border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+  }
+
+  .check-label {
+    font-size: .9rem;
+    color: rgba(255,255,255,.85);
+    user-select: none;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--gold);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: .95rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,.35); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--gold); }
+
+  .form-group select option { background: var(--navy-mid); }
+
+  .form-group textarea { resize: vertical; min-height: 90px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,.1);
+    margin: 24px 0;
+  }
+
+  .btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: #25D366;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: filter .2s, transform .2s;
+    box-shadow: 0 6px 24px rgba(37,211,102,.3);
+  }
+  .btn-whatsapp:hover { filter: brightness(1.08); transform: translateY(-2px); }
+  .btn-whatsapp svg { width: 22px; height: 22px; }
+
+  .form-note {
+    text-align: center;
+    font-size: .8rem;
+    color: rgba(255,255,255,.4);
+    margin-top: 14px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #070f20;
+    text-align: center;
+    padding: 32px 24px;
+    font-size: .85rem;
+    color: rgba(255,255,255,.35);
+  }
+  footer span { color: var(--gold); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 560px) {
+    .checklist { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-wrap { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">Caçapava &amp; Vale do Paraíba</div>
+  <h1>ADRIÁN<br><span>RICARDO</span></h1>
+  <p class="hero-sub">Pequenos reparos, encanamento, alvenaria e muito mais — rápido, confiável e com preço justo.</p>
+  <p class="hero-location">📍 Caçapava &amp; Vale do Paraíba</p>
+  <a class="btn-primary" href="#orcamento">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12a11.9 11.9 0 0 0-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.87 1.01 1.03-3.76-.24-.39A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.4c-.3-.15-1.77-.87-2.04-.97s-.47-.15-.67.15-.77.97-.95 1.17-.35.22-.65.07a8.15 8.15 0 0 1-2.39-1.47 9.07 9.07 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.12-.13.3-.33.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52s-.67-1.6-.92-2.2c-.24-.57-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37S5.5 9.4 5.5 10.9c0 1.5 1.1 2.95 1.25 3.15s2.17 3.3 5.26 4.63c.74.32 1.31.5 1.76.64.74.24 1.41.2 1.94.12.59-.09 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.47-.08-.12-.28-.2-.58-.35z"/></svg>
+    Solicitar Orçamento
+  </a>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    Serviços
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <p class="section-label">O que eu faço</p>
+  <h2 class="section-title">Serviços</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">🔧</div>
+      <h3>Pequenos Reparos</h3>
+      <p>Elétricos, hidráulicos, instalações, trocas de tomadas, luminárias e muito mais.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚿</div>
+      <h3>Encanamento</h3>
+      <p>Vazamentos, trocas de torneiras, registros, descargas, instalações e manutenção.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧱</div>
+      <h3>Serviços de Pedreiro</h3>
+      <p>Pequenas alvenarias, reparos em paredes, rebocos, assentamento de pisos e azulejos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🪛</div>
+      <h3>Marido de Aluguel</h3>
+      <p>Diversos serviços com praticidade, agilidade e confiança no seu dia a dia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="quote" id="orcamento">
+  <p class="section-label">Rápido e fácil</p>
+  <h2 class="section-title">Solicite seu Orçamento</h2>
+
+  <div class="form-wrap">
+    <p style="font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:20px;">Selecione o(s) serviço(s) que precisa:</p>
+
+    <div class="checklist" id="serviceChecks">
+      <label class="check-item">
+        <input type="checkbox" value="Pequenos Reparos (elétrico/hidráulico)">
+        <span class="check-box"></span>
+        <span class="check-label">🔧 Pequenos Reparos</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" value="Encanamento">
+        <span class="check-box"></span>
+        <span class="check-label">🚿 Encanamento</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" value="Serviços de Pedreiro">
+        <span class="check-box"></span>
+        <span class="check-label">🧱 Pedreiro</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" value="Marido de Aluguel">
+        <span class="check-box"></span>
+        <span class="check-label">🪛 Marido de Aluguel</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" value="Outro serviço">
+        <span class="check-box"></span>
+        <span class="check-label">❓ Outro</span>
+      </label>
+    </div>
+
+    <hr class="divider">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Seu Nome</label>
+        <input type="text" id="nome" placeholder="Ex: Maria Silva">
+      </div>
+      <div class="form-group">
+        <label>Cidade</label>
+        <input type="text" id="cidade" placeholder="Ex: Caçapava">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição do Problema</label>
+      <textarea id="descricao" placeholder="Descreva brevemente o que precisa ser feito..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Urgência</label>
+      <select id="urgencia">
+        <option value="">Selecione...</option>
+        <option value="Urgente (hoje/amanhã)">🔴 Urgente (hoje/amanhã)</option>
+        <option value="Esta semana">🟡 Esta semana</option>
+        <option value="Sem pressa, quero orçamento">🟢 Sem pressa, quero orçamento</option>
+      </select>
+    </div>
+
+    <button class="btn-whatsapp" onclick="enviarWhatsApp()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12a11.9 11.9 0 0 0-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.87 1.01 1.03-3.76-.24-.39A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.4c-.3-.15-1.77-.87-2.04-.97s-.47-.15-.67.15-.77.97-.95 1.17-.35.22-.65.07a8.15 8.15 0 0 1-2.39-1.47 9.07 9.07 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.12-.13.3-.33.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52s-.67-1.6-.92-2.2c-.24-.57-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37S5.5 9.4 5.5 10.9c0 1.5 1.1 2.95 1.25 3.15s2.17 3.3 5.26 4.63c.74.32 1.31.5 1.76.64.74.24 1.41.2 1.94.12.59-.09 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.47-.08-.12-.28-.2-.58-.35z"/></svg>
+      Enviar pelo WhatsApp
+    </button>
+    <p class="form-note">Você será redirecionado para o WhatsApp com a mensagem pronta ✅</p>
+  </div>
+</section>
+
+<footer>
+  Desenvolvido para <span>ARIS – Adrián Ricardo</span> · Marido de Aluguel · Caçapava &amp; Vale do Paraíba
+</footer>
+
+<script>
+  function enviarWhatsApp() {
+    const nome = document.getElementById('nome').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const descricao = document.getElementById('descricao').value.trim();
+    const urgencia = document.getElementById('urgencia').value;
+
+    const checks = document.querySelectorAll('#serviceChecks input[type="checkbox"]:checked');
+    const servicos = Array.from(checks).map(c => c.value);
+
+    if (servicos.length === 0) {
+      alert('Por favor, selecione ao menos um serviço.');
+      return;
+    }
+
+    let msg = '👋 Olá, Adrián! Vim pelo site e gostaria de um orçamento.\n\n';
+
+    if (nome) msg += `👤 *Nome:* ${nome}\n`;
+    if (cidade) msg += `📍 *Cidade:* ${cidade}\n`;
+
+    msg += `\n🔨 *Serviço(s) desejado(s):*\n`;
+    servicos.forEach(s => msg += `  • ${s}\n`);
+
+    if (descricao) msg += `\n📝 *Descrição:* ${descricao}\n`;
+    if (urgencia) msg += `\n⏰ *Urgência:* ${urgencia}\n`;
+
+    msg += '\nAguardo seu retorno! 😊';
+
+    const numero = '5512996264004';
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>
